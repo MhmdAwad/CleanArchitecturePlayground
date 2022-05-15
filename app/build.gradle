@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -40,4 +43,31 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    //Retrofit dependency
+    def retrofit = '2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+
+    //Dagger hilt dependency
+    def hilt = '2.42'
+    implementation "com.google.dagger:hilt-android:$hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt"
+
+    //Navigation component dependency
+    def nav_version = "2.4.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Coroutine dependency
+    def coroutine = '1.6.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine"
+
+    // Coroutine lifecycle scopes
+    def coroutine_lifecycle = "2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$coroutine_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$coroutine_lifecycle"
+
+
 }
