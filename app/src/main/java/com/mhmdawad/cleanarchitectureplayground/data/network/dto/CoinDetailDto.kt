@@ -2,6 +2,7 @@ package com.mhmdawad.cleanarchitectureplayground.data.network.dto
 
 
 import com.google.gson.annotations.SerializedName
+import com.mhmdawad.cleanarchitectureplayground.domain.model.CoinDetail
 
 data class CoinDetailDto(
     @SerializedName("description")
@@ -49,5 +50,18 @@ data class CoinDetailDto(
     @SerializedName("type")
     val type: String,
     @SerializedName("whitepaper")
-    val whitepaper: Whitepaper
+    val whitePaper: Whitepaper
 )
+
+fun CoinDetailDto.toCoinDetail(): CoinDetail {
+    return CoinDetail(
+        coinId = id,
+        name = name,
+        description = description,
+        symbol = symbol,
+        rank = rank,
+        isActive = isActive,
+        tags = tags.map { it.name },
+        team = team
+    )
+}
