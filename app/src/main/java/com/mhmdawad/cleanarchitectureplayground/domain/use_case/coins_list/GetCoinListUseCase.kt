@@ -10,7 +10,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class CoinListUseCase @Inject constructor(
+class GetCoinListUseCase @Inject constructor(
     private val repo: CoinPaprikaRepository
 ){
 
