@@ -25,6 +25,8 @@ class GetCoinDetailUseCase@Inject constructor(
             emit(Resource.Error(e.localizedMessage ?: "Please check your internet connection!"))
         }catch (e: HttpException){
             emit(Resource.Error(e.localizedMessage ?: "An error occurred, Please try again!"))
+        }catch (e: NullPointerException){
+            emit(Resource.Error(e.localizedMessage ?: "An error occurred, Please try again!"))
         }
     }
 }

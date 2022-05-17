@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mhmdawad.cleanarchitectureplayground.common.Constants
 import com.mhmdawad.cleanarchitectureplayground.common.Resource
+import com.mhmdawad.cleanarchitectureplayground.domain.model.CoinDetail
 import com.mhmdawad.cleanarchitectureplayground.domain.use_case.coin_detail.GetCoinDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,29 +18,18 @@ class CoinDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ): ViewModel(){
 
-    private val _state = MutableStateFlow(CoinDetailState())
+    private val _state = MutableStateFlow<Resource<CoinDetail>>(Resource.Loading())
     val state = _state.asStateFlow()
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_COIN_ID)?.let {id->
-            getCoinById(id)
+        CoinDetailFragmentArgs.fromSavedStateHandle(savedStateHandle).let {
+            getCoinById(it.coinId)
         }
-
     }
 
     private fun getCoinById(coinId: String) {
-        useCase(coinId).onEach {result->
-            when(result){
-                is Resource.Success-> {
-                    _state.value = CoinDetailState(coins = result.data)
-                }
-                is Resource.Loading-> {
-                    _state.value = CoinDetailState(isLoading = true)
-                }
-                is Resource.Error-> {
-                    _state.value = CoinDetailState(error = result.msg ?: "An error occurred!")
-                }
-            }
+               useCase(coinId).onEach {result->
+            _state.value = result
         }.launchIn(viewModelScope)
     }
 }

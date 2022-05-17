@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CleanArchitecturePlayground</string>
+
+    <string name="rankWithName">%1$d. %2$s</string>
+    <string name="coinName">%1$d. %2$s (%3$s)</string>
+    <string name="active">Active</string>
+    <string name="inActive">InActive</string>
+    <string name="noInternetConnection">No internet connection. Please try again!</string>
 </resources>
